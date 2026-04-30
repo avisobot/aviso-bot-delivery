@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Redirecting...</title>
+<script>
+/**
+ * GitHub Pages 404 Redirect Trick
+ *
+ * যখন কেউ visit করে:
+ *   https://avisobot.github.io/aviso-bot-delivery/AVISO-30D-EXP-29-05-04H
+ *
+ * GitHub Pages ওই path টা চেনে না, তাই 404.html লোড করে।
+ * এই 404.html:
+ *   1. URL path থেকে key বের করে
+ *   2. sessionStorage-এ save করে
+ *   3. index.html-এ redirect করে
+ *   4. index.html সেই key পড়ে display করে
+ */
+(function () {
+  var pathname = window.location.pathname;
+  // /aviso-bot-delivery/KEY_HERE → শেষ segment নাও
+  var parts = pathname.replace(/\/$/, '').split('/');
+  var key = parts[parts.length - 1];
+
+  // Base path বের করো (repo name পর্যন্ত)
+  // e.g. /aviso-bot-delivery/KEY → base = /aviso-bot-delivery/
+  var basePath = parts.slice(0, parts.length - 1).join('/') + '/';
+
+  if (key && key !== 'index.html' && key.length >= 8) {
+    try {
+      sessionStorage.setItem('aviso_key', key);
+    } catch (e) {}
+    // index.html-এ redirect করো
+    window.location.replace(basePath);
+  } else {
+    // Key নেই, সরাসরি index.html-এ পাঠাও
+    window.location.replace(basePath);
+  }
+})();
+</script>
+<style>
+  body {
+    background: #0a0f1a;
+    color: #94a3b8;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  p { font-size: 1rem; }
+</style>
+</head>
+<body>
+  <p>⏳ Redirecting...</p>
+</body>
+</html>
