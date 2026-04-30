@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviso Auto Bot — Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --green: #00e676;
+    --green-dim: #00c85a;
+    --amber: #ffb300;
+    --red: #ff5252;
+    --blue: #40c4ff;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #1e2d3d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans Bengali', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,230,118,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(64,196,255,0.05) 0%, transparent 60%);
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 40px 0 32px;
+    animation: fadeDown 0.6s ease both;
+  }
+  .logo-icon {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, #00e676, #00c8a0);
+    border-radius: 18px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 32px rgba(0,230,118,0.3);
+  }
+  .header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .header p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* Thank you banner */
+  .thank-you {
+    background: linear-gradient(135deg, rgba(0,230,118,0.12), rgba(0,200,160,0.08));
+    border: 1px solid rgba(0,230,118,0.25);
+    border-radius: 14px;
+    padding: 18px 22px;
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.2s ease both;
+    font-size: 1rem;
+    color: #b2f5c8;
+  }
+
+  /* License Box */
+  .license-box {
+    background: var(--surface);
+    border: 1.5px solid rgba(0,230,118,0.4);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.3s ease both;
+    box-shadow: 0 0 40px rgba(0,230,118,0.08);
+  }
+  .license-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--green);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .license-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,230,118,0.07);
+    border: 1px solid rgba(0,230,118,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-all;
+    gap: 12px;
+  }
+  .copy-btn {
+    background: var(--green);
+    color: #0a0f1a;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: 'Noto Sans Bengali', sans-serif;
+  }
+  .copy-btn:hover { background: #00ff88; transform: scale(1.05); }
+  .copy-btn.copied { background: #64ffda; }
+
+  .warning-note {
+    margin-top: 14px;
+    background: rgba(255,82,82,0.08);
+    border: 1px solid rgba(255,82,82,0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: #ffb3b3;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .warning-note .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* Site link */
+  .site-link-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    animation: fadeUp 0.5s 0.35s ease both;
+  }
+  .site-link-box span { color: var(--muted); font-size: 0.85rem; }
+  .site-link-box a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: rgba(64,196,255,0.1);
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(64,196,255,0.2);
+    transition: all 0.2s;
+  }
+  .site-link-box a:hover { background: rgba(64,196,255,0.2); }
+
+  /* Section */
+  .section {
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s 0.4s ease both;
+  }
+  .section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Download cards */
+  .download-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .download-card:hover {
+    border-color: rgba(0,230,118,0.3);
+    background: var(--surface2);
+  }
+  .download-card .info { flex: 1; }
+  .download-card .tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+  }
+  .tag-bot { background: rgba(0,230,118,0.15); color: var(--green); border: 1px solid rgba(0,230,118,0.2); }
+  .tag-ext { background: rgba(64,196,255,0.12); color: var(--blue); border: 1px solid rgba(64,196,255,0.2); }
+  .tag-fix { background: rgba(255,179,0,0.12); color: var(--amber); border: 1px solid rgba(255,179,0,0.2); }
+  .download-card .name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .download-card .desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .dl-btn {
+    background: transparent;
+    color: var(--green);
+    border: 1.5px solid rgba(0,230,118,0.35);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s;
+    display: inline-block;
+    font-family: 'Noto Sans Bengali', sans-serif;
+  }
+  .dl-btn:hover {
+    background: rgba(0,230,118,0.1);
+    border-color: var(--green);
+  }
+  .dl-btn.store {
+    color: var(--blue);
+    border-color: rgba(64,196,255,0.35);
+  }
+  .dl-btn.store:hover { background: rgba(64,196,255,0.1); border-color: var(--blue); }
+
+  /* FAQ */
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: rgba(64,196,255,0.25); }
+  .faq-q {
+    padding: 14px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    user-select: none;
+    list-style: none;
+  }
+  .faq-q::marker { display: none; }
+  .faq-q .chevron {
+    color: var(--muted);
+    transition: transform 0.3s;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+  details[open] .faq-q .chevron { transform: rotate(180deg); }
+  details[open] { border-color: rgba(64,196,255,0.3); }
+  .faq-a {
+    padding: 0 18px 16px;
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+  .faq-a a { color: var(--blue); text-decoration: none; }
+  .faq-a a:hover { text-decoration: underline; }
+
+  /* Browser section */
+  .browser-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .browser-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+  .browser-card:hover {
+    border-color: rgba(0,230,118,0.3);
+    background: var(--surface2);
+  }
+  .browser-card .bname { font-weight: 700; font-size: 0.9rem; color: #fff; margin: 6px 0 3px; }
+  .browser-card .bdesc { font-size: 0.75rem; color: var(--muted); }
+  .browser-card .bicon { font-size: 1.6rem; }
+
+  /* Help */
+  .help-box {
+    background: var(--surface);
+    border: 1px dashed rgba(255,179,0,0.3);
+    border-radius: 14px;
+    padding: 20px 22px;
+    text-align: center;
+    margin-top: 32px;
+    animation: fadeUp 0.5s 0.6s ease both;
+  }
+  .help-box p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+  .help-box strong { color: var(--amber); }
+
+  /* Locked card */
+  .download-card.locked {
+    opacity: 0.6;
+    position: relative;
+  }
+  .download-card.locked .dl-btn {
+    pointer-events: none;
+    color: var(--muted);
+    border-color: rgba(148,163,184,0.2);
+    background: transparent;
+    cursor: not-allowed;
+  }
+  .lock-badge {
+    display: none;
+    margin-top: 7px;
+    font-size: 0.75rem;
+    color: var(--amber);
+    align-items: center;
+    gap: 5px;
+  }
+  .lock-badge.visible { display: flex; }
+  .unlock-notice {
+    display: none;
+    background: rgba(255,179,0,0.07);
+    border: 1px solid rgba(255,179,0,0.3);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 0.84rem;
+    color: #ffd47a;
+    line-height: 1.65;
+  }
+  .unlock-notice.visible { display: block; }
+  .unlock-notice strong { color: var(--amber); }
+
+  /* Bot info dropdown */
+  .bot-info {
+    margin-top: 6px;
+  }
+  .bot-info summary {
+    font-size: 0.75rem;
+    color: var(--blue);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: inline-block;
+  }
+  .bot-info summary::-webkit-details-marker { display: none; }
+  .bot-info p {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.65;
+    background: rgba(64,196,255,0.05);
+    border-left: 2px solid rgba(64,196,255,0.3);
+    padding: 8px 10px;
+    border-radius: 0 6px 6px 0;
+  }
+  .bot-info p a { color: var(--blue); text-decoration: none; }
+  .bot-info p a:hover { text-decoration: underline; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 480px) {
+    .browser-cards { grid-template-columns: 1fr; }
+    .license-key { font-size: 1rem; }
+    .header h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-icon">🤖</div>
+    <h1>Aviso Auto Bot</h1>
+    <p>Setup Guide & Download Links</p>
+  </div>
+
+  <!-- Thank You -->
+  <div class="thank-you">
+    🎉 আপনাকে ধন্যবাদ Aviso Auto Bot নেওয়ার জন্য!<br>নিচে আপনার License Key এবং সম্পূর্ণ Setup গাইড দেওয়া আছে।
+  </div>
+
+  <!-- License Key -->
+  <div class="license-box">
+    <div class="license-label">
+      🔑 আপনার BOT LICENSE KEY
+    </div>
+    <div class="license-key">
+      <span id="licenseKey">AVISO-7D-EXP-06-05-AKJ</span>
+      <button class="copy-btn" onclick="copyKey()">📋 Copy</button>
+    </div>
+    <div class="warning-note">
+      <span class="icon">⚠️</span>
+      <span>LICENSE KEY টি একবার ব্যবহারের জন্য তৈরি। এটি শুধুমাত্র একটি browser-এ একবারই কাজ করবে। Browser-এর data clear করলে license আর কাজ করবে না।</span>
+    </div>
+  </div>
+
+  <!-- Site Link -->
+  <div class="site-link-box">
+    <span>🟢 Aviso সাইটে যান</span>
+    <a href="https://aviso.bz" target="_blank">aviso.bz →</a>
+  </div>
+
+  <!-- Downloads -->
+  <div class="section">
+    <div class="section-title">📥 Download Links</div>
+    <p style="font-size:0.82rem; color:var(--muted); margin-bottom:12px;">
+      💡 Link copy করে Chrome/Lemur browser থেকে খুলুন। ZIP হলে Extensions থেকে load করুন, Chrome Store হলে "Add to Chrome" করুন।
+    </p>
+
+    <!-- Main bot -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-bot">🤖 MAIN BOT</span>
+        <div class="name">Aviso Auto Bot</div>
+        <div class="desc">ZIP ডাউনলোড করে Lemur-এ extension হিসেবে load করুন</div>
+        <details class="bot-info"><summary>এই bot কী কাজ করে? ▾</summary><p>Aviso.bz সাইটে স্বয়ংক্রিয়ভাবে YouTube ভিডিও দেখার কাজ করে এবং task সম্পন্ন করে। এটি মূল automation bot — এটি ছাড়া বাকি কোনো bot কাজ করবে না।</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/19ifikns0kfs3h6/AvisoAutoBot.zip/file" target="_blank" class="dl-btn">Download</a>
+    </div>
+
+    <!-- Captcha solver -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-ext">🔌 EXTENSION</span>
+        <div class="name">Auto Captcha Solve Bot (NopeCHA)</div>
+        <div class="desc">Chrome Web Store থেকে Add to Chrome করুন</div>
+        <details class="bot-info"><summary>এই bot কীভাবে কাজ করে? ▾</summary><p>Aviso-তে কাজ করার সময় মাঝে মাঝে Captcha আসে। এই bot স্বয়ংক্রিয়ভাবে Captcha সমাধান করে দেয়, ফলে automation বাধাগ্রস্ত হয় না।</p></details>
+        <details class="bot-info"><summary>Captcha Bot Setup দেখুন ▾</summary><p>📺 <a href="https://youtube.com/shorts/hRVpCYHYqqk?feature=share" target="_blank">Setup ভিডিও দেখুন →</a></p></details>
+      </div>
+      <a href="https://chromewebstore.google.com/detail/nopecha-captcha-solver/dknlfmjaanfblgfdfebhijalfmhmjjjo" target="_blank" class="dl-btn store">Store</a>
+    </div>
+
+    <!-- YT Error detect -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">YT Error Detect Redirect</div>
+        <div class="desc">Mega থেকে ডাউনলোড করুন</div>
+        <details class="bot-info"><summary>এই bot কী কাজ করে? ▾</summary><p>YouTube ভিডিও চালাতে গিয়ে যদি "Video unavailable" বা error দেখায়, এই bot স্বয়ংক্রিয়ভাবে পরবর্তী task-এ redirect করে দেয়। ফলে bot আটকে না থেকে কাজ চালিয়ে যায়।</p></details>
+      </div>
+      <a href="https://mega.nz/file/jjAWCI7C#b748WPOq-SwLchpgin-1eo6lEgR-kMlBiv4vbclnhQ0" target="_blank" class="dl-btn">Download</a>
+    </div>
+
+    <!-- Ads blocker -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-ext">🔌 EXTENSION</span>
+        <div class="name">YouTube Ads Blocker</div>
+        <div class="desc">Automation smooth রাখতে দরকার — Chrome Store থেকে add করুন</div>
+        <details class="bot-info"><summary>এই bot কী কাজ করে? ▾</summary><p>Aviso-তে YouTube ভিডিও দেখার সময় বারবার ads আসলে automation বাধাগ্রস্ত হয়। এই extension YouTube-এর সব ads block করে, ফলে bot বিনা বাধায় কাজ করে যায়।</p></details>
+      </div>
+      <a href="https://chromewebstore.google.com/detail/adblock-for-youtube-skip/annjejmdobkjaneeafkbpipgohafpcom" target="_blank" class="dl-btn store">Store</a>
+    </div>
+
+    <!-- Unlock notice (shown for 7/30 day keys) -->
+    <div class="unlock-notice" id="unlock-notice">
+      🔒 <strong>নিচের ৪টি bot আপনার বর্তমান package-এ নেই।</strong><br>
+      এগুলো শুধুমাত্র <strong>৩ মাসের (90 Days) package</strong>-এ পাওয়া যায়।
+      Unlock করতে ৯০ দিনের প্যাকেজটি কিনুন!
+    </div>
+
+    <!-- Reloader -->
+    <div class="download-card" id="card-reloader">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">Aviso task page Reloader</div>
+        <div class="desc">Mediafire থেকে ডাউনলোড করুন</div>
+        <details class="bot-info"><summary>এই bot কী কাজ করে? ▾</summary><p>Aviso-তে নতুন task আসলে page স্বয়ংক্রিয়ভাবে reload হয় না। এই bot নির্দিষ্ট সময় পর পর task page reload করে, ফলে নতুন কাজ মিস হওয়ার সম্ভাবনা থাকে না।</p></details>
+        <div class="lock-badge" id="lock-reloader">🔒 এই bot টি আপনার package-এ নেই</div>
+      </div>
+      <a href="https://www.mediafire.com/file/s5jggvtqcl4m407/Aviso-task-page-Reloader.zip/file" target="_blank" class="dl-btn" id="btn-reloader">Download</a>
+    </div>
+
+    <!-- Popup Error fix -->
+    <div class="download-card" id="card-popup">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">Popup Error</div>
+        <div class="desc">Mediafire থেকে ডাউনলোড করুন</div>
+        <details class="bot-info"><summary>এই bot কী কাজ করে? ▾</summary><p>Aviso-তে কাজ করার সময় মাঝে মাঝে popup error আসে যা bot-এর কাজ থামিয়ে দেয়। এই bot স্বয়ংক্রিয়ভাবে সেই popup বন্ধ করে automation চালু রাখে।</p></details>
+        <div class="lock-badge" id="lock-popup">🔒 এই bot টি আপনার package-এ নেই</div>
+      </div>
+      <a href="https://www.mediafire.com/file/6aczv812dph6yno/popup-error.zip/file" target="_blank" class="dl-btn" id="btn-popup">Download</a>
+    </div>
+
+    <!-- Task Error fix -->
+    <div class="download-card" id="card-task">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">Task Error</div>
+        <div class="desc">Mediafire থেকে ডাউনলোড করুন</div>
+        <details class="bot-info"><summary>এই bot কী কাজ করে? ▾</summary><p>কোনো task সম্পন্ন করার সময় error দেখালে bot আটকে যায়। এই bot সেই ধরনের task error স্বয়ংক্রিয়ভাবে handle করে, ফলে automation নিজে থেকেই পরবর্তী কাজে এগিয়ে যায়।</p></details>
+        <div class="lock-badge" id="lock-task">🔒 এই bot টি আপনার package-এ নেই</div>
+      </div>
+      <a href="https://www.mediafire.com/file/o78kfhw67wvjkyt/task_error_detect.zip/file" target="_blank" class="dl-btn" id="btn-task">Download</a>
+    </div>
+
+    <!-- YT Privacy Screen (Extra) -->
+    <div class="download-card" id="card-privacy" style="border-color: rgba(255,179,0,0.2);">
+      <div class="info">
+        <span class="tag" style="background:rgba(255,179,0,0.1);color:var(--amber);border:1px solid rgba(255,179,0,0.2);">✨ EXTRA</span>
+        <div class="name">YT Privacy Screen</div>
+        <div class="desc">Video চলবে, screen দেখা যাবে না — আপত্তিকর ভিডিও থেকে বাঁচুন</div>
+        <details class="bot-info"><summary>এই bot কী কাজ করে? ▾</summary><p>Aviso-তে YouTube-এর কাজ করার সময় মাঝে মাঝে আপত্তিকর বা বিব্রতকর ভিডিও চলে আসে। এই extension add করলে ভিডিও ঠিকঠাক চলবে এবং task সম্পন্ন হবে, কিন্তু screen-এ কিছু দেখা যাবে না।</p></details>
+        <div class="lock-badge" id="lock-privacy">🔒 এই bot টি আপনার package-এ নেই</div>
+      </div>
+      <a href="https://www.mediafire.com/file/c2dlgoz722tjtjm/YT-privacy-screen.zip/file" target="_blank" class="dl-btn" id="btn-privacy">Download</a>
+    </div>
+  </div>
+
+  <!-- Browser section -->
+  <div class="section">
+    <div class="section-title">📱 কোন Browser ব্যবহার করবেন?</div>
+    <div class="browser-cards">
+      <a href="https://play.google.com/store/apps/details?id=com.lemurbrowser.exts" target="_blank" class="browser-card">
+        <div class="bicon"><img src="https://i.postimg.cc/DzXh4SWv/5243fbf2b2119313b07edb2a5e631bd7912396dd27ac-url.png" alt="Lemur" style="width:40px;height:40px;border-radius:10px;object-fit:cover;"></div>
+        <div class="bname">Lemur Browser</div>
+        <div class="bdesc">সব phone-এর জন্য (Recommended)</div>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=org.flow.browser" target="_blank" class="browser-card">
+        <div class="bicon">🌊</div>
+        <div class="bname">FlowSurf</div>
+        <div class="bdesc">পুরনো phone-এর জন্য</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-title">❓ সাধারণ প্রশ্নোত্তর</div>
+
+    <details class="faq-item">
+      <summary class="faq-q">Extension কীভাবে browser-এ add করব? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        Browser-এর Menu → Extensions এ যান → ZIP/CRX ফাইল সিলেক্ট করে upload করুন।<br><br>
+        📺 ভিডিও গাইড: <a href="https://youtu.be/2n7r2pJO60c" target="_blank">Extension install করার নিয়ম</a><br>
+        📺 বাংলা গাইড: <a href="https://youtu.be/yf5yUHQdubc" target="_blank">Android-এ extension add করুন</a>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">কাজ কতক্ষণ পর পর আসে? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        প্রতি <strong style="color:#fff">৪০–৫০ মিনিট</strong> পর পর নতুন কাজ আসে। Bot ততক্ষণ চলবে যতক্ষণ কাজ থাকবে বা আটকে না যাবে।
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Bot চালিয়ে অন্য app ব্যবহার করা যাবে? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        হ্যাঁ! <strong style="color:#fff">Split Screen</strong> ব্যবহার করে একসাথে দুটো app চালানো যাবে।<br>
+        📺 <a href="https://m.youtube.com/results?sp=mAEA&search_query=split+screen" target="_blank">Split screen কীভাবে করবেন দেখুন →</a>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Screen বন্ধ হলে কী হবে? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        Screen off হলে Bot বন্ধ হয়ে যাবে। সমাধান:<br>
+        Phone Settings → <strong style="color:#fff">Screen Timeout</strong> খুঁজুন → <strong style="color:#fff">৩০ মিনিট</strong> সেট করুন।
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">সমস্যা হলে কী করব? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        <strong style="color:#fff">Screen Record</strong> করুন, সমস্যার বিষয়টা লিখে আমার কাছে পাঠান।
+      </div>
+    </details>
+  </div>
+
+  <!-- Help box -->
+  <div class="help-box">
+    <p>❓ কোনো সমস্যা হলে <strong>Screen Record করে সমস্যার বিবরণ</strong> সহ যোগাযোগ করুন।<br>
+    আপনার সাফল্য কামনা করছি! 🚀</p>
+  </div>
+
+</div>
+
+<script>
+/**
+ * KEY DETECTION + LOCK SYSTEM
+ *
+ * Key format: AVISO-{DAYS}D-...
+ *   7D  → 7 দিন  → 4 bot LOCKED
+ *   30D → 30 দিন → 4 bot LOCKED
+ *   90D → 90 দিন → সব UNLOCKED
+ *
+ * URL পদ্ধতি:
+ *   PATH:  /aviso-bot-delivery/AVISO-15D-EX-12-05-LVY
+ *   QUERY: ?key=AVISO-15D-EX-12-05-LVY
+ *   HASH:  #AVISO-15D-EX-12-05-LVY
+ */
+(function () {
+  var key = null;
+
+  // পদ্ধতি ১: sessionStorage (404.html redirect থেকে আসে)
+  try {
+    var saved = sessionStorage.getItem('aviso_key');
+    if (saved) { key = saved; sessionStorage.removeItem('aviso_key'); }
+  } catch (e) {}
+
+  // পদ্ধতি ২: URL path
+  if (!key) {
+    var pathParts = window.location.pathname.replace(/\/$/, '').split('/');
+    var lastSegment = pathParts[pathParts.length - 1];
+    if (lastSegment && lastSegment !== 'index.html' && lastSegment.length >= 8) {
+      key = lastSegment;
+    }
+  }
+
+  // পদ্ধতি ৩: ?key= query parameter
+  if (!key) {
+    var params = new URLSearchParams(window.location.search);
+    var qKey = params.get('key');
+    if (qKey) key = qKey;
+  }
+
+  // পদ্ধতি ৪: #hash
+  if (!key) {
+    var hash = window.location.hash.replace('#', '');
+    if (hash && hash.length >= 8) key = hash;
+  }
+
+  // Key inject
+  if (key) {
+    document.getElementById('licenseKey').textContent = decodeURIComponent(key);
+  }
+
+  // ── LOCK SYSTEM ──────────────────────────────────────────
+  // Key থেকে day count বের করো: AVISO-7D-... বা AVISO-30D-... বা AVISO-90D-...
+  function getDayCount(k) {
+    if (!k) return null;
+    var m = k.toUpperCase().match(/AVISO-(\d+)D/);
+    return m ? parseInt(m[1]) : null;
+  }
+
+  var days = getDayCount(key);
+
+  // 90D হলে সব unlock, অন্য যেকোনো (7D, 30D, বা unknown) হলে lock
+  var shouldLock = (days === null || days < 90);
+
+  if (shouldLock) {
+    // Unlock notice দেখাও
+    var notice = document.getElementById('unlock-notice');
+    if (notice) notice.classList.add('visible');
+
+    // প্রতিটি lockable card lock করো
+    var lockables = [
+      { card: 'card-reloader', btn: 'btn-reloader', badge: 'lock-reloader' },
+      { card: 'card-popup',    btn: 'btn-popup',    badge: 'lock-popup'    },
+      { card: 'card-task',     btn: 'btn-task',     badge: 'lock-task'     },
+      { card: 'card-privacy',  btn: 'btn-privacy',  badge: 'lock-privacy'  },
+    ];
+
+    lockables.forEach(function(item) {
+      var card  = document.getElementById(item.card);
+      var btn   = document.getElementById(item.btn);
+      var badge = document.getElementById(item.badge);
+
+      if (card)  card.classList.add('locked');
+      if (badge) badge.classList.add('visible');
+
+      // Button কে disabled করো এবং href সরিয়ে দাও
+      if (btn) {
+        btn.removeAttribute('href');
+        btn.textContent = '🔒 Locked';
+        btn.setAttribute('onclick', 'return false;');
+      }
+    });
+  }
+  // ─────────────────────────────────────────────────────────
+})();
+
+function copyKey() {
+  var key = document.getElementById('licenseKey').textContent;
+  var btn = document.querySelector('.copy-btn');
+
+  function showCopied() {
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(function () {
+      btn.textContent = '📋 Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(key).then(showCopied).catch(function () {
+      fallbackCopy(key, showCopied);
+    });
+  } else {
+    fallbackCopy(key, showCopied);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  var el = document.createElement('textarea');
+  el.value = text;
+  el.style.position = 'fixed';
+  el.style.opacity = '0';
+  document.body.appendChild(el);
+  el.focus();
+  el.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(el);
+  if (cb) cb();
+}
+</script>
+</body>
+</html>
