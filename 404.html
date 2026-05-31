@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+<script>
+  // URL থেকে key বের করো
+  // যেমন: /aviso-bot-delivery/AVISO-7D-EXP-07-06-PCT
+  var parts = window.location.pathname.replace(/\/$/, '').split('/');
+  var key = parts[parts.length - 1];
+
+  if (key && key.length >= 8 && key !== 'index.html') {
+    // key টা sessionStorage-এ রাখো
+    try { sessionStorage.setItem('aviso_key', key); } catch(e) {}
+    // index.html-এ redirect করো
+    var base = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    window.location.replace(base + 'index.html');
+  } else {
+    window.location.replace(window.location.origin + '/aviso-bot-delivery/index.html');
+  }
+</script>
+</body>
+</html>
